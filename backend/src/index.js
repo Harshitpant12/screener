@@ -10,11 +10,15 @@ import authRoutes from "./routes/authRoutes.js"
 dotenv.config()
 
 const app = express()
-const PORT = process.env.PORT || 5001
+const PORT = process.env.PORT || 5000
 app.use(cors()) // to be updated after frontend implementation
 
 app.use(express.json())
 app.use(cookieParser())
+
+app.get("/", (_, res) => {
+    res.send("Welcome to the Screener API")
+})
 
 app.use('/api/auth/', authRoutes)
 
