@@ -1,7 +1,9 @@
 import express from "express"
 import dotenv from "dotenv"
 import cors from "cors"
-import { connectDB } from "./lib/db.js"
+import cookieParser from "cookie-parser"
+
+import { connectDB } from "./utils/db.js"
 
 dotenv.config()
 
@@ -9,9 +11,10 @@ const app = express()
 const PORT = process.env.PORT || 5001
 app.use(cors()) // to be updated after frontend implementation
 
-app.get('/', (req, res) => {
-    res.send("Hello world!")
-})
+app.use(express.json())
+app.use(cookieParser())
+
+app.use('/api/auth/', authRoutes) // not imported yet
 
 connectDB().then(() => {
     app.listen(PORT, () => {
