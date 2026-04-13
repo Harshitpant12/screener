@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import jwt from "jsonwebtoken"
 
 const userSchema = new mongoose.Schema({
     name: {
@@ -17,7 +18,6 @@ const userSchema = new mongoose.Schema({
     role:{
         type: String,
         enum: ["user", "admin"],
-        required: true,
         default: "user",
     },
     refreshToken: {
@@ -29,6 +29,20 @@ const userSchema = new mongoose.Schema({
     timestamps: true
 }
 )
+
+userSchema.methods.generateAccessToken = function(){
+    const token = jwt.sign({_id: this._id}, process.env.JWT_ACCESS_SECRET, {
+        expiresIn: process.env.ACCESS_TOKEN_EXPIRES
+    })
+    return token
+}
+
+userSchema.methods.generateRefreshToken = function(){
+    const token = jwt.sign({_id: this._id}, process.env.JWT_REFRESH_SECRET, {
+        expiresIn: process.env.REFRESH_TOKEN_EXPIRES
+    })
+    return token
+}
 
 const User = mongoose.model("User", userSchema)
 
