@@ -1,6 +1,6 @@
 import Analysis from "../models/Analysis.js";
 import User from "../models/User.js";
-import ApiError from "../utils/apiError";
+import ApiError from "../utils/apiError.js";
 import ApiResponse from "../utils/apiResponse.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 

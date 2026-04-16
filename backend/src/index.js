@@ -8,6 +8,7 @@ import { connectDB } from "./utils/db.js"
 import errorHandler from "./middleware/errorHandler.js"
 import authRoutes from "./routes/authRoutes.js"
 import analysisRoutes from "./routes/analysisRoutes.js"
+import adminRoutes from "./routes/adminRoutes.js"
 
 dns.setServers(["1.1.1.1", "8.8.8.8"])
 
@@ -26,6 +27,7 @@ app.get("/", (_, res) => {
 
 app.use('/api/auth/', authRoutes)
 app.use('/api/analysis', analysisRoutes)
+app.use('/api/admin', adminRoutes)
 
 app.use(errorHandler)
 
