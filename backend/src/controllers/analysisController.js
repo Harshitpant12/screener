@@ -58,7 +58,7 @@ const runAnalysis = asyncHandler(async function (req, res) {
 })
 
 const getMyAnalyses = asyncHandler(async (req, res) => {
-    const analyses = (await Analysis.find({ userId: req.user._id }).select("-resumeText")).toSorted({ createdAt: -1})
+    const analyses = await Analysis.find({ userId: req.user._id }).select("-resumeText").sort({ createdAt: -1})
     return res.status(200).json(new ApiResponse(200, analyses, "Analyses fetched successfully"))
 })
 
