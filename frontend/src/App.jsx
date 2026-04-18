@@ -1,25 +1,17 @@
-import { useState } from 'react'
+import Home from './pages/Home'
+import { Route, Routes } from 'react-router-dom'
+import Register from './pages/Register'
+import Login from './pages/Login'
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
     <>
-      <section id="center">
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
-
+        <Routes>
+          <Route path='/' element={<Home/>} />
+          <Route path='/register' element={<Register/>} />
+          <Route path='/login' element={<Login/>} />
+        </Routes>
     </>
   )
 }
