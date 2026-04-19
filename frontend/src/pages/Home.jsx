@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { Link } from 'react-router-dom'
 import myVideo from '../assets/hero-bg.mp4';
 import { MoveUpRightIcon, X } from "lucide-react"
@@ -8,6 +8,41 @@ function Home() {
 
     const [isScrolled, setIsScrolled] = useState(false)
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+    const [text, setText] = useState("");
+    const [isDeleting, setIsDeleting] = useState(false);
+    const [wordIndex, setWordIndex] = useState(0);
+
+    const words = ["interviews", "callbacks", "offers", "careers"];
+
+    useEffect(() => {
+        const currentWord = words[wordIndex];
+        let timeout;
+
+        if (isDeleting) {
+        // Backspacing speed
+        timeout = setTimeout(() => {
+            setText(currentWord.substring(0, text.length - 1));
+            
+            // When fully deleted, move to the next word and start typing
+            if (text.length === 0) {
+            setIsDeleting(false);
+            setWordIndex((prev) => (prev + 1) % words.length);
+            }
+        }, 80); 
+        } else {
+        // Typing speed
+        timeout = setTimeout(() => {
+            setText(currentWord.substring(0, text.length + 1));
+            
+            // When word is fully typed, pause for 2 seconds before deleting
+            if (text.length === currentWord.length) {
+            timeout = setTimeout(() => setIsDeleting(true), 2000);
+            }
+        }, 200); 
+        }
+
+        return () => clearTimeout(timeout);
+    }, [text, isDeleting, wordIndex]);
 
     // scroll effect to change nav bg
     useEffect(() => {
@@ -96,8 +131,33 @@ function Home() {
 
         </div>
 
-        <div>
-            I am another section
+        {/* info section */}
+        <div className="w-full bg-[#FCFBF4] py-24 px-6 md:py-32 md:px-12 flex justify-center border-t border-gray-200">
+            <div className="max-w-7xl w-full grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-8">
+                
+                {/* Left column*/}
+                <div className="flex flex-col justify-start">
+                    <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-gray-900 leading-[1.1]">
+                        Decoding the algorithms to unlock <br className="hidden md:block" />
+                        
+                        <span className="text-blue-600 font-jetbrains mt-4 inline-block h-[1.2em]">
+                            {text}
+                            <span className="animate-pulse font-normal text-blue-500">_</span>
+                        </span>
+                    </h2>
+                </div>
+
+                {/* Right column */}
+                <div className="flex flex-col gap-6 text-lg md:text-xl text-gray-600 font-medium leading-relaxed md:pl-10">
+                    <p>
+                        Our AI parsing engine translates complex job descriptions into a precise, step-by-step roadmap. In seconds, SkillSync analyzes your resume exactly how enterprise tracking systems do, pinpointing hidden formatting traps and missing keywords.
+                    </p>
+                    <p>
+                        This technology eliminates the guesswork from the job hunt, giving highly qualified candidates the unfair advantage they need to bypass the algorithm and get their resume in front of a human.
+                    </p>
+                </div>
+                
+            </div>
         </div>
 
     </>
