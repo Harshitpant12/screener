@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { motion, AnimatePresence } from "framer-motion";
 import { Link } from 'react-router-dom'
 import myVideo from '../assets/hero-bg.mp4';
-import { AlertTriangle, CheckCircle2, FileWarning, MoveUpRightIcon, X } from "lucide-react"
+import { AlertTriangle, CheckCircle2, Cpu, FileWarning, MoveUpRightIcon, Target, UploadCloud, X } from "lucide-react"
 
 function Home() {
 
@@ -243,6 +243,71 @@ function Home() {
                 </div>
             </div>
         </div>
+
+        {/* pipeline or how it works section */}
+        <div className="w-full bg-black py-24 px-6 md:py-32 flex justify-center border-t border-gray-800 relative overflow-hidden">
+            
+            {/* Subtle Background Glow (the center one) */}
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-lg h-96 bg-blue-600/20 blur-[120px] rounded-full pointer-events-none"></div>
+
+            <div className="max-w-6xl w-full relative z-10">
+                
+                {/* Section Header */}
+                <div className="flex flex-col items-center text-center gap-4 mb-20">
+                    <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-white">
+                        Execute in three steps.
+                    </h2>
+                    <p className="text-lg text-gray-400 font-jetbrains">
+                        No complex onboarding. Just upload and execute.
+                    </p>
+                </div>
+
+                {/* The 3-Step Flow */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-12 relative">
+                    
+                    {/* Connecting Line of each steps on desktop */}
+                    <div className="hidden md:block absolute top-12 left-[15%] right-[15%] h-0.5 bg-linear-to-r from-gray-800 via-blue-900 to-gray-800 -z-10"></div>
+
+                    {/* Step 1 */}
+                    <div className="flex flex-col items-center text-center group">
+                        <div className="w-24 h-24 rounded-2xl bg-gray-900 border border-gray-800 flex items-center justify-center mb-6 group-hover:border-blue-500 transition-colors duration-300 relative">
+                            <div className="absolute inset-0 bg-blue-500/10 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                            <UploadCloud size={40} className="text-gray-400 group-hover:text-blue-400 transition-colors" />
+                        </div>
+                        <h3 className="text-xl font-bold text-white mb-3">1. Upload Raw Data</h3>
+                        <p className="text-gray-400 leading-relaxed max-w-xs">
+                            Drop in your current PDF resume and paste the raw text of your target job description.
+                        </p>
+                    </div>
+
+                    {/* Step 2 */}
+                    <div className="flex flex-col items-center text-center group">
+                        <div className="w-24 h-24 rounded-2xl bg-gray-900 border border-gray-800 flex items-center justify-center mb-6 group-hover:border-blue-500 transition-colors duration-300 relative">
+                            <div className="absolute inset-0 bg-blue-500/10 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                            <Cpu size={40} className="text-gray-400 group-hover:text-blue-400 transition-colors" />
+                        </div>
+                        <h3 className="text-xl font-bold text-white mb-3">2. NLP Parsing Engine</h3>
+                        <p className="text-gray-400 leading-relaxed max-w-xs">
+                            Our machine learning model rips apart your document, using natural language processing to score it exactly like an enterprise ATS.
+                        </p>
+                    </div>
+
+                    {/* Step 3 */}
+                    <div className="flex flex-col items-center text-center group">
+                        <div className="w-24 h-24 rounded-2xl bg-gray-900 border border-gray-800 flex items-center justify-center mb-6 group-hover:border-blue-500 transition-colors duration-300 relative">
+                            <div className="absolute inset-0 bg-blue-500/10 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                            <Target size={40} className="text-gray-400 group-hover:text-blue-400 transition-colors" />
+                        </div>
+                        <h3 className="text-xl font-bold text-white mb-3">3. Deploy & Dominate</h3>
+                        <p className="text-gray-400 leading-relaxed max-w-xs">
+                            Apply the exact recommended keyword injections and formatting fixes, then hit submit with confidence.
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
 
     </>
   )
