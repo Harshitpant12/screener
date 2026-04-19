@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { Link } from 'react-router-dom'
 import myVideo from '../assets/hero-bg.mp4';
 import { AlertTriangle, ArrowRight, ArrowUp, ArrowUpRight, CheckCircle2, Cpu, FileWarning, MoveUpRightIcon, Target, UploadCloud, X } from "lucide-react"
@@ -67,7 +67,7 @@ function Home() {
                     Login
                     <span className='absolute bottom-1 left-0 w-0 h-0.5 bg-current transition-all duration-300 ease-out group-hover:w-full'></span>
                 </Link>
-                <Link className='border px-6 py-2 rounded-3xl hover:bg-white hover:text-black' to='/'>Try it Out</Link>
+                <Link className={`border px-6 py-2 rounded-3xl ${isScrolled ? 'hover:bg-black hover:text-white' : 'hover:bg-white hover:text-black' } `} to='/'>Try it Out</Link>
             </div>
 
             {/* hamburger button */}
