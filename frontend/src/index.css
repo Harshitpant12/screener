@@ -9,3 +9,7 @@
     @apply antialiased text-gray-900 bg-gray-50;
   }
 }
+
+@theme {
+  --font-jetbrains: "JetBrains Mono", monospace;
+}
