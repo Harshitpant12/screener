@@ -55,7 +55,10 @@ api.interceptors.response.use(
                 
             } catch (refreshError) { 
                 setAccessToken(null); 
-                window.location.href = '/login'; 
+                const currentPath = window.location.pathname;
+                if (currentPath !== '/login' && currentPath !== '/register' && currentPath !== '/') {
+                    window.location.href = '/login'; 
+                }
                 return Promise.reject(refreshError);
             }
         }
