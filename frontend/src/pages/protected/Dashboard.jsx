@@ -1,4 +1,4 @@
-import React, { useState, useRef, useContext } from 'react';
+import React, { useState, useRef, useContext, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link, useNavigate } from 'react-router-dom';
 import { 
@@ -21,6 +21,18 @@ function Dashboard() {
     const [jdText, setJdText] = useState("");
     const [isAnalyzing, setIsAnalyzing] = useState(false);
     const fileInputRef = useRef(null);
+
+    useEffect(() => {
+        const wakeUpServices = async () => {
+            try {
+                await api.get('/analysis/wake-python');
+                console.log("Pre-flight: Optimization engines initialized.");
+            } catch (err) {
+                console.log("Pre-flight ping failed, but signal was sent.");
+            }
+        };
+        wakeUpServices();
+    }, []);
 
     const handleLogout = async () => {
         await logout();
