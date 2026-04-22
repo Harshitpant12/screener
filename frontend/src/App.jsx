@@ -7,6 +7,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import Dashboard from './pages/protected/Dashboard'
 import Results from './pages/protected/Results'
 import History from './pages/protected/History'
+import Settings from './pages/protected/Settings'
 
 function App() {
 
@@ -24,6 +25,7 @@ function App() {
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/results/:id" element={<Results />} />
               <Route path="/history" element={<History />} />
+              <Route path="/settings" element={<Settings />} />
             </Route>
           </Routes>
         </AuthContextProvider>
