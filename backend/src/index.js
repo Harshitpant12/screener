@@ -37,11 +37,6 @@ app.use('/api/admin', adminRoutes)
 
 app.use(errorHandler)
 
-console.log("=== DIAGNOSTIC TEST ===");
-console.log("MONGO_URI Type:", typeof process.env.MONGO_URI);
-console.log("MONGO_URI Exists?", !!process.env.MONGO_URI);
-console.log("=======================");
-
 connectDB().then(() => {
     app.listen(PORT, () => {
         console.log(`app is listening on : http://localhost:${PORT}`);
