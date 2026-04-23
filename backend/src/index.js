@@ -17,7 +17,7 @@ dotenv.config()
 const app = express()
 const PORT = process.env.PORT || 5000
 app.use(cors({
-    origin: process.env.FRONTEND_URL,
+    origin: 'https://skillsync-official.vercel.app' || process.env.FRONTEND_URL,
     credentials: true
 }))
 
