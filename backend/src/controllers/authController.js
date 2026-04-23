@@ -50,7 +50,7 @@ const login = asyncHandler(async function(req, res){
 
     res.cookie("refreshToken", refreshToken, {
         maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days in milliseconds
-        sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
+        sameSite: 'lax',
         secure: process.env.NODE_ENV === 'production',
         httpOnly: true
     })
@@ -70,7 +70,7 @@ const logout = asyncHandler(async function(req, res){
     res.clearCookie("refreshToken", {
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
-        sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax'
+        sameSite: 'lax'
     })
 
     res.status(200).json(new ApiResponse(200, "Logged out successfully"))
