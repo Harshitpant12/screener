@@ -67,7 +67,7 @@ function Home() {
                     Login
                     <span className='absolute bottom-1 left-0 w-0 h-0.5 bg-current transition-all duration-300 ease-out group-hover:w-full'></span>
                 </Link>
-                <Link className={`border px-6 py-2 rounded-3xl ${isScrolled ? 'hover:bg-black hover:text-white' : 'hover:bg-white hover:text-black' } `} to='/'>Try it Out</Link>
+                <Link className={`border px-6 py-2 rounded-3xl ${isScrolled ? 'hover:bg-black hover:text-white' : 'hover:bg-white hover:text-black' } `} to='/register'>Try it Out</Link>
             </div>
 
             {/* hamburger button */}
@@ -124,14 +124,15 @@ function Home() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, delay: 0.3 }}
                     className='text-white text-4xl md:text-7xl my-4'>Beat the ATS. <br /> Land the interview</motion.h1>
-                    <motion.Link
+                    <motion.div
                     initial={{opacity: 0, y: 40}}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, delay: 0.3 }}
-                    to='/register'
-                    className='inline-flex items-center rounded-4xl text-xl bg-white hover:bg-white/80 text-black px-6 py-5 mt-6 md:mt-10 cursor-pointer'>
+                    >
+                        <Link to='/register' className='inline-flex items-center rounded-4xl text-xl bg-white hover:bg-white/80 text-black px-6 py-5 mt-6 md:mt-10 cursor-pointer'>
                         Start Free Analysis <ArrowUpRight size={20} className='ml-2' />
-                    </motion.Link>
+                        </Link>
+                    </motion.div>
                 </div>
 
         </div>
@@ -422,7 +423,7 @@ function Home() {
 
                     {/* Bottom Row: Copyright */}
                     <div className="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-gray-800 text-xs text-gray-600">
-                        <p>&copy; {new Date().getFullYear()} SkillSync. All rights reserved.</p>
+                        <p>&copy; {new Date().getFullYear()} SkillSync. All rights reserved | HARSHIT PANT</p>
                         <div className="flex gap-4 mt-4 md:mt-0">
                             <p>Built for the modern job market.</p>
                         </div>
