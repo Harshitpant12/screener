@@ -34,11 +34,14 @@ function Register() {
     try {
       await register(formData.name, formData.email, formData.password);
       
-      toast.success('Workspace created successfully!', { id: toastId });
+      toast.success('Workspace created successfully! Redirecting to login...', { 
+        id: toastId,
+        duration: 3300
+       });
       setTimeout(() => {
         navigate('/login');
-      }, 1500);
-      
+      }, 2000);
+
     } catch (err) {
       console.error("Registration Error:", err);
 
