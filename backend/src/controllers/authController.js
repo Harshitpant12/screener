@@ -1,9 +1,68 @@
 import bcrypt from "bcryptjs"
+import { OAuth2Client } from 'google-auth-library';
 
 import User from "../models/User.js"
-import {asyncHandler} from "../utils/asyncHandler.js"
+import { asyncHandler } from "../utils/asyncHandler.js"
 import ApiError from "../utils/apiError.js"
 import ApiResponse from "../utils/apiResponse.js"
+
+const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
+
+const googleLogin = asyncHandler(async function(req, res) {
+    const { credential } = req.body; // The token from the frontend
+
+    if (!credential) {
+        throw new ApiError(400, "Google credential is required");
+    }
+
+    let payload;
+    try {
+        // Verify the token with Google's servers
+        const ticket = await client.verifyIdToken({
+            idToken: credential,
+            audience: process.env.GOOGLE_CLIENT_ID,
+        });
+        payload = ticket.getPayload();
+    } catch (error) {
+        throw new ApiError(401, "Invalid Google Token");
+    }
+
+    const { email, name } = payload;
+
+    let user = await User.findOne({ email });
+
+    // If they don't exist, create them instantly
+    if (!user) {
+        const randomPassword = Math.random().toString(36).slice(-8) + Math.random().toString(36).slice(-8);
+        const hashedPassword = await bcrypt.hash(randomPassword, 12);
+
+        user = await User.create({
+            name,
+            email,
+            password: hashedPassword,
+        });
+    }
+
+    const accessToken = user.generateAccessToken();
+    const refreshToken = user.generateRefreshToken();
+
+    user.refreshToken = refreshToken;
+    await user.save();
+
+    res.cookie("refreshToken", refreshToken, {
+        maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days in milliseconds
+        sameSite: 'lax',
+        secure: process.env.NODE_ENV === 'production',
+        httpOnly: true
+    });
+
+    const { password: _, ...userWithoutPassword } = user.toObject();
+
+    res.status(200).json(new ApiResponse(200, {
+        accessToken: accessToken,
+        userWithoutPassword,
+    }, "Logged in with Google successfully"));
+});
 
 const register = asyncHandler(async function(req, res){
     const {name, email, password} = req.body
@@ -25,7 +84,7 @@ const register = asyncHandler(async function(req, res){
     const {password: _, ...userWithoutPassword} = newUser.toObject()
 
     return res.status(201).json(new ApiResponse(201, userWithoutPassword, "User created successfully"))
-    
+
 })
 
 const login = asyncHandler(async function(req, res){
@@ -88,4 +147,4 @@ const getMe = asyncHandler(function(req, res){
     res.status(200).json(new ApiResponse(200, {user}, "User data fetched successfully")) // password is already excluded from user by verifyAccessToken middleware
 })
 
-export {register, login, logout, refresh, getMe}
+export { register, login, logout, refresh, getMe, googleLogin }
