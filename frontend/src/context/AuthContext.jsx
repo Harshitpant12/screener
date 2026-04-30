@@ -58,9 +58,18 @@ export function AuthContextProvider({ children }) {
         setUser(null)
     }
   };
-  // no need for refresh as that is being handled in axios instance
+  
+  const googleAuth = async (credential) => {
+    const { data } = await api.post("/auth/google", { credential });
+    const { accessToken, userWithoutPassword } = data.data;
+    setAccessToken(accessToken);
+    setUser(userWithoutPassword);
+    warmUpPythonService();
+    return userWithoutPassword;
+  };
+
   return (
-    <AuthContext.Provider value={{ user, isLoading, login, register, logout }}>
+    <AuthContext.Provider value={{ user, isLoading, login, register, logout, googleAuth }}>
         {children}
     </AuthContext.Provider>
   )
