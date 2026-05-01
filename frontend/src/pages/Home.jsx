@@ -34,11 +34,11 @@ function Home() {
         timeout = setTimeout(() => {
             setText(currentWord.substring(0, text.length + 1));
             
-            // When word is fully typed, pause for 2 seconds before deleting
+            // When word is fully typed, pause for 1.5 seconds before deleting
             if (text.length === currentWord.length) {
-            timeout = setTimeout(() => setIsDeleting(true), 2000);
+            timeout = setTimeout(() => setIsDeleting(true), 1500);
             }
-        }, 200); 
+        }, 100); 
         }
 
         return () => clearTimeout(timeout);
