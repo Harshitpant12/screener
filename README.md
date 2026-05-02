@@ -48,6 +48,11 @@
 
 ---
 
+### Screenshots (Visuals)
+![Landing_Page](./assets/skillsync_landing_page.png)
+![New_Scan](./assets/new_scan.png)
+![Result_Page](./assets/result.png)
+
 ## Architecture & Project Structure
 
 The repository isolates the frontend client, the Node.js API, and the Python NLP engine into independent directories for scalable deployment.
@@ -117,6 +122,9 @@ ACCESS_TOKEN_EXPIRES=15m
 REFRESH_TOKEN_EXPIRES=7d
 PYTHON_SERVICE_URL=http://localhost:5001
 NODE_ENV=development
+GEMINI_API_KEY=your_gemini_api_key
+GOOGLE_CLIENT_ID=your_google_client_id
+GOOGLE_CLIENT_SECRET=your_google_client_secret
 ```
 
 Start the backend server:
