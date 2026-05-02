@@ -165,6 +165,7 @@ Create a `.env` file in the `frontend/` root folder:
 
 ```env
 VITE_API_URL=http://localhost:5000/api
+VITE_GOOGLE_CLIENT_ID=your_google_client_id
 ```
 
 Start the React development server:
