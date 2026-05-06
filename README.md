@@ -196,6 +196,16 @@ npm run dev
 | **POST** | `/api/auth/logout` | Destroy secure session cookies | Yes |
 | **GET** | `/api/auth/me` | Verify active session state | Yes |
 
+### Internal NLP Engine (Python / Flask)
+*This microservice acts as the dedicated compute engine for the platform, offloading CPU-intensive NLP tasks from the primary Node.js server to avoid blocking the event loop.*
+
+| Method | Endpoint | Description | Payload Type |
+| :--- | :--- | :--- | :--- |
+| **GET** | `/` or `/health` | **Service Heartbeat**: Used by Render for health monitoring and uptime checks. | N/A |
+| **GET** | `/wake` | **Pre-warm Trigger**: Targeted ping from the frontend to initialize `spaCy` models in RAM. | N/A |
+| **POST** | `/extract-text` | **PDF Extraction**: Accepts a multipart form-data PDF and returns raw unstructured text via `pdfminer.six`. | `multipart/form-data` |
+| **POST** | `/extract` | **NLP Orchestration**: Executes the core pipeline including TF-IDF vectorization, Cosine Similarity matching, and skill lemmatization. | `application/json` |
+
 ---
 
 ## Contributing
